@@ -181,12 +181,14 @@ class TVDB {
 
         if(!$response->isSuccessful()) $response->throwException();
 
+        $nextPage = $response->json()->links->next;
+
         $returnData = [];
 
         foreach($response->json()->data as $episodeData)
             $returnData[] = new Episode($episodeData);
 
-        return new EpisodeCollection($page, $returnData);
+        return new EpisodeCollection($page, $returnData, $nextPage);
     }
 
     /**

@@ -9,11 +9,13 @@ use Iterator;
 class EpisodeCollection implements ArrayAccess, Iterator, Countable {
     public $page;
     public $episodes;
+    private $nextPage;
     protected $iteratorPosition = 0;
 
-    public function __construct($page, $episodes) {
+    public function __construct($page, $episodes, $nextPage) {
         $this->page = $page;
         $this->episodes = $episodes;
+        $this->nextPage = $nextPage;
     }
 
     /**
@@ -23,7 +25,7 @@ class EpisodeCollection implements ArrayAccess, Iterator, Countable {
      * @return bool
      */
     public function hasNextPage() {
-        return (count($this->episodes) >= TVDB::EPISODES_PER_PAGE);
+        return (!empty($this->nextPage));
     }
 
     /**
