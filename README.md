@@ -1,22 +1,22 @@
 # Laravel TVDB API wrapper
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/musa11971/laravel-tvdb.svg?style=flat-square)](https://packagist.org/packages/musa11971/laravel-tvdb)
-[![Quality Score](https://img.shields.io/scrutinizer/g/musa11971/laravel-tvdb.svg?style=flat-square)](https://scrutinizer-ci.com/g/musa11971/laravel-tvdb)
-[![Total Downloads](https://img.shields.io/packagist/dt/musa11971/laravel-tvdb.svg?style=flat-square)](https://packagist.org/packages/musa11971/laravel-tvdb)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/marcwelp/laravel-tvdb.svg?style=flat-square)](https://packagist.org/packages/marcwelp/laravel-tvdb)
+[![Quality Score](https://img.shields.io/scrutinizer/g/marcwelp/laravel-tvdb.svg?style=flat-square)](https://scrutinizer-ci.com/g/marcwelp/laravel-tvdb)
+[![Total Downloads](https://img.shields.io/packagist/dt/marcwelp/laravel-tvdb.svg?style=flat-square)](https://packagist.org/packages/marcwelp/laravel-tvdb)
 
-The `musa11971/laravel-tvdb` package provides easy to use functions that help you interact with the TVDB API.
+The `marcwelp/laravel-tvdb` package provides easy to use functions that help you interact with the TVDB API.
 
 ## Installation
 
 You can install the package via composer:
 
 ``` bash
-composer require musa11971/laravel-tvdb
+composer require marcwelp/laravel-tvdb
 ```
 
 Publish the config file with the following artisan command:
 ```bash
-php artisan vendor:publish --provider="musa11971\TVDB\TVDBServiceProvider"
+php artisan vendor:publish --provider="marcwelp\TVDB\TVDBServiceProvider"
 ```
 
 ## Configuration
@@ -25,7 +25,7 @@ I recommend not touching the config file, but rather defining your API details i
 ```
 TVDB_API_KEY=ETIO2B4NO372XP0X
 TVDB_USER_KEY=XXUXCXR8LYXUNM7P
-TVDB_USERNAME=musa11971
+TVDB_USERNAME=marcwelp
 ```
 Don't forget to clear recache your config. (`php artisan config:cache`)
 
@@ -149,7 +149,7 @@ echo TVDB::getToken();
 
 ## Credits
 
-- [Musa Semou](https://github.com/musa11971)
+- [Musa Semou](https://github.com/marcwelp)
 
 ## License
 
