@@ -1,6 +1,6 @@
 <?php
 
-namespace musa11971\TVDB;
+namespace marcwelp\TVDB;
 
 use Illuminate\Support\Facades\Cache;
 
@@ -165,30 +165,73 @@ class TVDB {
      *
      * @param integer $id
      * @param int $page
+     * @param string $language
      *
      * @return EpisodeCollection
      * @throws Exceptions\TVDBNotFoundException
      * @throws Exceptions\TVDBUnauthorizedException
      */
-    public static function getSeriesEpisodes($id, $page = 1) {
+    public static function getSeriesEpisodes($id, $page = 1, $language = 'en')
+    {
         $response = self::request([
-            'method'    => 'GET',
-            'url'       => self::apiURL('/series/' . $id . '/episodes'),
-            'query'     => ['page' => $page],
-            'auth'      => true,
-            'name'      => 'get_series_episodes'
+            'method' => 'GET',
+            'url' => self::apiURL('/series/' . $id . '/episodes'),
+            'Accept-Language' => $language,
+            'query' => ['page' => $page],
+            'auth' => true,
+            'name' => 'get_series_episodes'
         ]);
 
-        if(!$response->isSuccessful()) $response->throwException();
-
-        $nextPage = $response->json()->links->next;
+        if (!$response->isSuccessful()) $response->throwException();
 
         $returnData = [];
 
-        foreach($response->json()->data as $episodeData)
+        $nextpage = $response->json()->links->next;
+
+        foreach ($response->json()->data as $episodeData)
             $returnData[] = new Episode($episodeData);
 
-        return new EpisodeCollection($page, $returnData, $nextPage);
+        return new EpisodeCollection($page, $returnData, $nextpage);
+    }
+
+    /**
+     * Retrieves a series' episode details
+     *
+     * @param integer $id
+     * @param int $page
+     * @param string $language
+     * @param array $query
+     *
+     * @return EpisodeCollection
+     * @throws Exceptions\TVDBNotFoundException
+     * @throws Exceptions\TVDBUnauthorizedException
+     */
+    public static function getSeriesEpisodesQuery($id, $page, $language = 'en', $query = array())
+    {
+
+        if (empty($query['page'])) {
+            $query['page'] = $page;
+        }
+
+        $response = self::request([
+            'method' => 'GET',
+            'url' => self::apiURL('/series/' . $id . '/episodes/query'),
+            'Accept-Language' => $language,
+            'query' => $query,
+            'auth' => true,
+            'name' => 'get_series_episodes_query'
+        ]);
+
+        if (!$response->isSuccessful()) $response->throwException();
+
+        $returnData = [];
+
+        $nextpage = $response->json()->links->next;
+
+        foreach ($response->json()->data as $episodeData)
+            $returnData[] = new Episode($episodeData);
+
+        return new EpisodeCollection($page, $returnData, $nextpage);
     }
 
     /**
@@ -280,6 +323,10 @@ class TVDB {
         if(isset($options['auth']) && $options['auth'] === true) {
             $usedToken = self::getToken();
             $requestHeaders[] = 'Authorization: ' . 'Bearer ' . $usedToken;
+        }
+
+        if (isset($options['Accept-Language'])) {
+            $requestHeaders[] = 'Accept-Language: ' . $options['Accept-Language'];
         }
 
         // Add postfields

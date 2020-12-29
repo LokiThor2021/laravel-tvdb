@@ -1,9 +1,9 @@
 <?php
 
-namespace musa11971\TVDB;
+namespace marcwelp\TVDB;
 
-use musa11971\TVDB\Exceptions\TVDBNotFoundException;
-use musa11971\TVDB\Exceptions\TVDBUnauthorizedException;
+use marcwelp\TVDB\Exceptions\TVDBNotFoundException;
+use marcwelp\TVDB\Exceptions\TVDBUnauthorizedException;
 
 class TVDBRequestResponse {
     protected $info;
@@ -75,6 +75,9 @@ class TVDBRequestResponse {
                 throw new TVDBNotFoundException('404: Unable to find the actors - ' . $this->info['url']);
             }
             else if($this->name == 'get_series_episodes') {
+                throw new TVDBNotFoundException('404: Unable to find the episodes - ' . $this->info['url']);
+            }
+            else if($this->name == 'get_series_episodes_query') {
                 throw new TVDBNotFoundException('404: Unable to find the episodes - ' . $this->info['url']);
             }
             else if($this->name == 'get_episode') {

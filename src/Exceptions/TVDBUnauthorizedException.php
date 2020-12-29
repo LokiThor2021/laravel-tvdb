@@ -1,6 +1,6 @@
 <?php
 
-namespace musa11971\TVDB\Exceptions;
+namespace marcwelp\TVDB\Exceptions;
 
 use Exception;
 

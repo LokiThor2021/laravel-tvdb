@@ -1,6 +1,6 @@
 <?php
 
-namespace musa11971\TVDB;
+namespace marcwelp\TVDB;
 
 use Illuminate\Support\ServiceProvider;
 
